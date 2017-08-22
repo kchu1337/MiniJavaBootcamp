@@ -1,49 +1,33 @@
 package bootcamp.demo.Controller;
 
 
+import bootcamp.demo.TvShow;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Controller
 public class HomeController {
 
-    @RequestMapping("/")
-    public String home() {
-        return "index";
-    }
-    //Lesson 1
-    @RequestMapping("/lesson1")
-    public String lesson1() {
-        return "lesson1";
+    @GetMapping("/tv")
+    public String tvload(Model model) {
+        model.addAttribute("tvShow", new TvShow());
+        return "tvform";
     }
 
-    //Lesson 2
-    @RequestMapping("/lesson2")
-    public String lesson2(Model model) {
-        model.addAttribute("message", "Say Hello to the people");
-        return "lesson2";
+    @PostMapping("/tv")
+    public String tvshow(@Valid TvShow tvShow, BindingResult result, Model model) {
 
+        if (result.hasErrors()){
+            return "tvform";
+        }
+        model.addAttribute("tvShow", tvShow);
+        return "tvoutput";
     }
 
-    //Lesson 3
-    @RequestMapping("/lesson3")
-    public String lesson3(Model model) {
 
-        return "lesson3";
-
-    }
-
-    //Lesson 4
-    @GetMapping("/lesson4")
-    public String lesson4Get(Model model) {
-        return "lesson4_load";
-    }
-    @PostMapping("/lesson4")
-    public String lesson4Post(@RequestParam("login")String login,  Model model) {
-        model.addAttribute("login", login);
-        return "lesson4_show";
-
-    }
 }
