@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>JobList</title>
+</head>
+<body>
+<table>
+    <th>Job Title</th>
+    <th>Job Employer</th>
+    <th>Job Description</th>
+    <tr th:each="job : ${jobs}">
+        <td th:inline = "text"> [[${job.title}]]</td>
+        <td th:inline = "text"> [[${job.employer}]]</td>
+        <td th:inline = "text"> [[${job.description}]]</td>
+    </tr>
+</table>
+
+
+</body>
+</html>

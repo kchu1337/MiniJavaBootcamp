@@ -1,10 +1,12 @@
 package bootcamp.demo.Controller;
 
 
-import bootcamp.demo.TvShow;
+import bootcamp.demo.Model.Job;
+import bootcamp.demo.Repository.JobRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.*;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -12,22 +14,30 @@ import javax.validation.Valid;
 
 @Controller
 public class HomeController {
+    @Autowired
+    JobRepository jobRepository;
 
-    @GetMapping("/tv")
-    public String tvload(Model model) {
-        model.addAttribute("tvShow", new TvShow());
-        return "tvform";
+    @RequestMapping("/")
+    public String listJobs(Model model){
+        model.addAttribute("jobs", jobRepository.findAll());
+        return "joblist";
     }
 
-    @PostMapping("/tv")
-    public String tvshow(@Valid TvShow tvShow, BindingResult result, Model model) {
+    @GetMapping("/add")
+    public String jobForm(Model model){
+        model.addAttribute("job", new Job());
+        return "addjob";
+    }
 
+    @PostMapping("/add")
+    public String processForm(@Valid Job job, BindingResult result){
         if (result.hasErrors()){
-            return "tvform";
+            return "addjob";
         }
-        model.addAttribute("tvShow", tvShow);
-        return "tvoutput";
+        jobRepository.save(job);
+        return "redirect:/";
     }
+
 
 
 }
