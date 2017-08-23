@@ -1,6 +1,8 @@
 package bootcamp.demo.Model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Actor {
@@ -10,7 +12,17 @@ public class Actor {
 
     private String name;
     private String realname;
-    private String photo;
+
+    @ManyToMany
+    @JoinTable(name = "movie_actor",
+            joinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
+    private Set<Movie> movies;
+
+    public Actor(){
+        super();
+        movies = new HashSet<Movie>();
+    }
 
     public long getId() {
         return id;
@@ -36,11 +48,11 @@ public class Actor {
         this.realname = realname;
     }
 
-    public String getPhoto() {
-        return photo;
+    public Set<Movie> getMovies() {
+        return movies;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
     }
 }

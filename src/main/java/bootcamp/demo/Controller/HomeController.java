@@ -21,35 +21,34 @@ import java.util.Map;
 public class HomeController {
     @Autowired
     ActorRepository actorRepository;
-
     @Autowired
-    CloudinaryConfig cloudc;
+    MovieRepository movieRepository;
 
     @RequestMapping("/")
-    public String listActors(Model model){
+    public String index(Model model){
+    // First let's create an actor
+    Actor actor = new Actor();
+        actor.setName("Sandra Bullock");
+        actor.setRealname("Sandra Mae Bullowski");
+
+    // Now let's create a movie
+    Movie movie = new Movie();
+        movie.setTitle("Emoji Movie");
+        movie.setYear(2017);
+        movie.setDescription("About Emojis");
+        movieRepository.save(movie);
+        movie = movieRepository.findOne((long) 1);
+
+
+    // Add the list of movies to the actor's movie list
+        actor.getMovies().add(movie);
+
+    // Save the actor to the database
+        actorRepository.save(actor);
+
+    // Grab all the actors from the database and send them to
+    // the template
         model.addAttribute("actorList", actorRepository.findAll());
-        return "actorlist";
-    }
-
-    @GetMapping("/add")
-    public String newActor(Model model){
-        model.addAttribute("actor", new Actor());
-        return "upload";
-    }
-
-    @PostMapping("/add")
-    public String processActor(@ModelAttribute Actor actor, @RequestParam("file")MultipartFile file){
-        if (file.isEmpty()){
-            return "redirect:/upload";
-        }
-        try {
-            Map uploadResult =  cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
-            actor.setPhoto(uploadResult.get("url").toString());
-            actorRepository.save(actor);
-        } catch (IOException e){
-            e.printStackTrace();
-            return "redirect:/upload";
-        }
-        return "redirect:/";
-    }
+        return "index";
+}
 }
