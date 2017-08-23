@@ -6,12 +6,15 @@
 </head>
 <body>
 <form action="#" th:action="@{/add}" th:object="${course}" method="post">
-    Title :<input type="text" th:field="*{title}" />
-    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span><br />
-    Instructor :<input type="text" th:field="*{instructor}" />
-    <span th:if="${#fields.hasErrors('instructor')}" th:errors="*{instructor}"></span><br />
-    Description :<textarea rows="3" th:field="*{description}" />
+    Title :<input type="text" th:field="*{title}"/>
+    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    <br/>
+    Instructor :<input type="text" th:field="*{instructor}"/>
+    <span th:if="${#fields.hasErrors('instructor')}" th:errors="*{instructor}"></span>
+    <br/>
+    Description :<textarea rows="3" th:field="*{description}"/>
     <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+    <br/>
     Credit :<input type="number" th:field="*{credit}" />
     <span th:if="${#fields.hasErrors('credit')}" th:errors="*{credit}"></span>
     <br />

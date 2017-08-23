@@ -26,7 +26,7 @@ public class HomeController {
 
     @GetMapping("/add")
     public String courseForm(Model model){
-        model.addAttribute("couse", new Course());
+        model.addAttribute("course", new Course());
         return "addcourse";
     }
 
@@ -39,19 +39,19 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @PostMapping("/view/{id}")
+    @RequestMapping("/view/{id}")
     public String detail(@PathVariable("id") long id, Model model ){
         model.addAttribute("course", courseRepository.findOne(id));
         return "show";
     }
 
-    @PostMapping("/update/{id}")
+    @RequestMapping("/update/{id}")
     public String update(@PathVariable("id") long id, Model model ){
         model.addAttribute("course", courseRepository.findOne(id));
         return "update";
     }
 
-    @PostMapping("/view/{id}")
+    @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") long id, Model model ){
         courseRepository.delete(id);
         return "redirect:/";

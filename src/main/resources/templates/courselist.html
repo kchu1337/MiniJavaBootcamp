@@ -14,11 +14,11 @@
         <td>Actions</td>
     </tr>
     <tr th:each="course : ${courses}">
-        <td th:inline = "text">[[${course.title}]]></td>
-        <td th:inline = "text">[[${course.instructor}]]></td>
-        <td th:inline = "text">[[${course.credit}]]></td>
+        <td th:inline = "text">[[${course.title}]]</td>
+        <td th:inline = "text">[[${course.instructor}]]</td>
+        <td th:inline = "text">[[${course.credit}]]</td>
         <td>
-            <a th:href="@'{/detail/' + ${course.id}}">Details</a> -
+            <a th:href="@{'/view/' + ${course.id}}">Details</a> -
             <a th:href="@{'/delete/'+ ${course.id}}">Delete</a>
         </td>
     </tr>
