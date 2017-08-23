@@ -24,6 +24,11 @@ public class HomeController {
     public String index(Model model){
         return "index";
     }
+    @RequestMapping("/login")
+    public String login(Model model){
+        return "login";
+    }
+
 
 }
 
