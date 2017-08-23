@@ -28,6 +28,10 @@ public class HomeController {
     public String login(Model model){
         return "login";
     }
+    @RequestMapping("/admin")
+    public String admin(Model model){
+        return "admin";
+    }
 
 
 }
