@@ -8,5 +8,13 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface UserRepository extends CrudRepository<User, Long> {
-    User findByUsername(String username);
+     public User findByUsername(String username);
+
+    public User findFirstById(int id);
+
+    public User findByEmail(String email);
+
+    public int countByUsername(String username);
+
+    public int countByEmail(String email);
 }
