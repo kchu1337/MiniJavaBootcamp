@@ -28,9 +28,9 @@ public class HomeController {
     public String login(Model model){
         return "login";
     }
-    @RequestMapping("/admin")
+    @RequestMapping("/secure")
     public String admin(Model model){
-        return "admin";
+        return "secure";
     }
 
 
