@@ -22,40 +22,33 @@ import java.util.Set;
 @Controller
 public class HomeController {
     @Autowired
-    DirectorRepository directorRepository;
+    EmployeeRepository employeeRepository;
     @Autowired
-    MovieRepository movieRepository;
+    LaptopRepository laptopRepository;
 
-        @RequestMapping("/")
-        public String index(Model model){
-            // First let's create a director
-            Director director = new Director();
-            director.setName("Stephen Bullock");
-            director.setGenre("Sci Fi");
+    @RequestMapping("/")
+    public String index(Model model){
+        // First let's create an employee
+        Employee employee = new Employee();
+        employee.setName("Stephen Bullock");
+        employee.setSsn("555-12-1234");
 
+        // Now let's create a laptop
+        Laptop laptop = new Laptop();
+        laptop.setBrand("Dell");
+        laptop.setModel("Latitude XL");
+        laptopRepository.save(laptop);
 
-            // Now let's create a movie
-            Movie movie = new Movie();
-            movie.setTitle("Star Movie");
-            movie.setYear(2017);
-            movie.setDescription("About Stars...");
-            movieRepository.save(movie);
-            director.getMovies().add(movie);
+        // Add the laptop to the employee
+        employee.setLaptop(laptop);
 
-            movie = new Movie();
-            movie.setTitle("DeathStar Ewoks");
-            movie.setYear(2011);
-            movie.setDescription("About Ewoks on the DeathStar...");
-            movieRepository.save(movie);
-            director.getMovies().add(movie);
+        // Save the employee to the database
+        employeeRepository.save(employee);
 
-            // Save the director to the database
-            directorRepository.save(director);
-
-            // Grad all the directors from the database and send them to
-            // the template
-            model.addAttribute("directors", directorRepository.findAll());
-            return "index";
-        }
+        // Grab all the employees from the database and send them to
+        // the template
+        model.addAttribute("employees", employeeRepository.findAll());
+        return "index";
+    }
 }
 
