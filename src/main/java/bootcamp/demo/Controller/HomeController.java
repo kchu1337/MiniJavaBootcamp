@@ -14,41 +14,48 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 @Controller
 public class HomeController {
     @Autowired
-    ActorRepository actorRepository;
+    DirectorRepository directorRepository;
     @Autowired
     MovieRepository movieRepository;
 
-    @RequestMapping("/")
-    public String index(Model model){
-    // First let's create an actor
-    Actor actor = new Actor();
-        actor.setName("Sandra Bullock");
-        actor.setRealname("Sandra Mae Bullowski");
-
-    // Now let's create a movie
-    Movie movie = new Movie();
-        movie.setTitle("Emoji Movie");
-        movie.setYear(2017);
-        movie.setDescription("About Emojis");
-        movieRepository.save(movie);
-        movie = movieRepository.findOne((long) 1);
+        @RequestMapping("/")
+        public String index(Model model){
+            // First let's create a director
+            Director director = new Director();
+            director.setName("Stephen Bullock");
+            director.setGenre("Sci Fi");
 
 
-    // Add the list of movies to the actor's movie list
-        actor.getMovies().add(movie);
+            // Now let's create a movie
+            Movie movie = new Movie();
+            movie.setTitle("Star Movie");
+            movie.setYear(2017);
+            movie.setDescription("About Stars...");
+            movieRepository.save(movie);
+            director.getMovies().add(movie);
 
-    // Save the actor to the database
-        actorRepository.save(actor);
+            movie = new Movie();
+            movie.setTitle("DeathStar Ewoks");
+            movie.setYear(2011);
+            movie.setDescription("About Ewoks on the DeathStar...");
+            movieRepository.save(movie);
+            director.getMovies().add(movie);
 
-    // Grab all the actors from the database and send them to
-    // the template
-        model.addAttribute("actorList", actorRepository.findAll());
-        return "index";
+            // Save the director to the database
+            directorRepository.save(director);
+
+            // Grad all the directors from the database and send them to
+            // the template
+            model.addAttribute("directors", directorRepository.findAll());
+            return "index";
+        }
 }
-}
+

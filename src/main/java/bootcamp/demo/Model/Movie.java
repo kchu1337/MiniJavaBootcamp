@@ -14,13 +14,11 @@ public class Movie {
     private long year;
     private String description;
 
-    @ManyToMany(mappedBy = "movies")
-    private Set<Actor> cast;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "director_id")
+    private Director director;
 
-    public Movie(){
-        super();
-        cast = new HashSet<Actor>();
-    }
+
     public long getId() {
         return id;
     }
@@ -53,11 +51,11 @@ public class Movie {
         this.description = description;
     }
 
-    public Set<Actor> getCast() {
-        return cast;
+    public Director getDirector() {
+        return director;
     }
 
-    public void setCast(Set<Actor> cast) {
-        this.cast = cast;
+    public void setDirector(Director director) {
+        this.director = director;
     }
 }
