@@ -34,6 +34,10 @@ public class UserService {
         return userRepository.countByEmail(email);
     }
 
+    public int countByUsername(String name) {
+        return userRepository.countByUsername(name);
+    }
+
     public User findbyUsername(String username) {return userRepository.findByUsername(username);}
 
     public void saveAccount(User user, String role) {

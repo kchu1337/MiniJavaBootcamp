@@ -19,6 +19,17 @@ public class User {
     private String username;
     private String authority;
 
+    public User() {
+    super();
+    }
+
+    public User(String name, String password, String email, String username) {
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+    }
+
     public long getId() {
         return id;
     }

@@ -47,7 +47,9 @@ public class HomeController {
         if (result.hasErrors()){
             return "register";
         }
-
+        if (userService.countByUsername(user.getUsername()) > 0){
+            return "register";
+        }
         userService.saveAccount(user,"USER");
         return "redirect:/";
     }
